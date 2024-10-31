@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/constant/app_colors.dart';
@@ -20,20 +21,40 @@ class CategoriesCards extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                padding: EdgeInsets.all(12),
-                height: 60,
-                width: 60,
-                decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.textFieldGreyColor),
-                child: Image.asset(
-                  img,
-                ),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  const CircleAvatar(
+                    radius: 32,
+                    backgroundColor: AppColors.kPrimaryColor,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      width: 60,
+                      height: 60,
+                      placeholder: (context, url) {
+                        return const Placeholder(
+                          strokeWidth: 0.1,
+                          color: AppColors.textFieldGreyColor,
+                          child: Icon(
+                            Icons.downloading,
+                            color: AppColors.lightRed,
+                          ),
+                        );
+                      },
+                      imageUrl: img,
+                    ),
+                  ),
+                ],
               ),
               Center(
                 child: Text(
                   title,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: true,
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],

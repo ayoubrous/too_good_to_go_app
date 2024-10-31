@@ -19,7 +19,7 @@ class CustomIconButton extends StatelessWidget {
       height: height ?? 40,
       width: width ?? 38,
       decoration: BoxDecoration(shape: BoxShape.circle, color: circleColor ?? AppColors.textFieldGreyColor),
-      child: InkWell(
+      child: GestureDetector(
         onTap: onTapp,
         child: Icon(
           iconData ?? Icons.keyboard_arrow_left_outlined,

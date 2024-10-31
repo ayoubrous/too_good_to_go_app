@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "976187858833",
+    "project_id": "too-good-to-go-admin",
+    "storage_bucket": "too-good-to-go-admin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976187858833:android:c3955bcda7f7b73ac3c430",
+        "android_client_info": {
+          "package_name": "com.example.too_good_to_go_admin_panel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-4eTD0w7BbTxStb0wNE-Ifj2MHOxM03k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976187858833:android:76870fe3dfbaf78fc3c430",
+        "android_client_info": {
+          "package_name": "com.example.too_good_to_go_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-4eTD0w7BbTxStb0wNE-Ifj2MHOxM03k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

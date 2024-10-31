@@ -18,27 +18,30 @@ class BValidators {
   }
 
   static String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Password is required";
-    }
-    if (value.length < 6) {
-      return "Password must be at least 6 character long.";
-    }
+   if (value == null || value.isEmpty) {
+    return "Password is required";
+   }
+   if (value.length < 6) {
+     return "Password must be at least 6 characters long.";
+   }
 
-    /// for upper case
-    if (value.contains(RegExp(r"[A-Z]"))) {
-      return "Password must contain at least one upper case letter";
-    }
+  /// Vérifier la présence d'une lettre majuscule
+   if (!value.contains(RegExp(r"[A-Z]"))) {
+     return "Password must contain at least one upper case letter";
+   }
 
-    /// chect number
-    if (value.contains(RegExp(r"[0-9]"))) {
-      return "Password must contain at least one number";
-    }
-    if (value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return "Password must contain at least one special character";
-    }
-    return null;
+  /// Vérifier la présence d'un chiffre
+   if (!value.contains(RegExp(r"[0-9]"))) {
+    return "Password must contain at least one number";
   }
+
+  /// Vérifier la présence d'un caractère spécial
+  if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+     return "Password must contain at least one special character";
+  }
+  
+   return null;
+ }
 
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
