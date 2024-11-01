@@ -9,8 +9,6 @@ import '../../setting_view/setting_screen/setting_screen.dart';
 import '../home_screen/home_screen.dart';
 
 class NavigationBarScreen extends StatefulWidget {
-  const NavigationBarScreen({super.key});
-
   @override
   State<NavigationBarScreen> createState() => _NavigationBarScreenState();
 }
@@ -60,7 +58,6 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
   List<Widget> screenList = [
     HomeScreen(),
     SizedBox(),
-    //FavoriteScreen(),
     SettingScreen(),
   ];
 

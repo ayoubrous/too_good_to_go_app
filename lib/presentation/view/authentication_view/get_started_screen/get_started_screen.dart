@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:too_good_to_go_app/presentation/elements/custom_button.dart';
-import 'package:too_good_to_go_app/presentation/view/authentication_view/select_role_screen/select_role_screen.dart';
+import 'package:too_good_to_go_app/presentation/view/authentication_view/login_screen/login_screen.dart';
 import 'package:too_good_to_go_app/utils/constant/app_colors.dart';
 import 'package:too_good_to_go_app/utils/constant/image_string.dart';
 import 'package:too_good_to_go_app/utils/constant/sizes.dart';
@@ -25,16 +25,16 @@ class GetStartedScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Spacer(),
+                const Spacer(),
                 Center(
                   child: Image.asset(
                     AppImages.getStartedImage,
                     width: AppSizes.imageThumbSize * 3,
                   ),
                 ).animate().fade(
-                      duration: Duration(milliseconds: 800),
+                      duration: const Duration(milliseconds: 800),
                     ),
-             40.sH,
+                40.sH,
                 Text.rich(TextSpan(children: [
                   TextSpan(
                     text: 'welcomeTo'.tr,
@@ -62,17 +62,20 @@ class GetStartedScreen extends StatelessWidget {
                     text: 'aver'.tr,
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
-                ])).animate().fadeIn(duration: Duration(milliseconds: 900)),
+                ])).animate().fadeIn(duration: const Duration(milliseconds: 900)),
                 15.sH,
                 Text(
                   'getStartedSubTitle'.tr,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                Spacer(flex: 2,),
+                const Spacer(
+                  flex: 2,
+                ),
                 CustomButton(
                   text: 'GetStarted'.tr,
                   onTapped: () {
-                    Get.offAll(() => SelectRoleScreen());
+
+                    Get.offAll(() => LoginScreen());
                   },
                 ),
                 15.sH,

@@ -31,10 +31,10 @@ class BValidators {
     }
 
     /// chect number
-    if (value.contains(RegExp(r"[0-9]"))) {
+    if (!value.contains(RegExp(r"[0-9]"))) {
       return "Password must contain at least one number";
     }
-    if (value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
       return "Password must contain at least one special character";
     }
     return null;

@@ -17,8 +17,8 @@ class LanguageScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         // leading: CustomBackButton(),
-        leading:  CustomBackButton(),
-        title:  Text('languages'.tr),
+        leading: CustomBackButton(),
+        title: Text('languages'.tr),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -31,8 +31,6 @@ class LanguageScreen extends StatelessWidget {
                   localeController.setLocale(const Locale(
                     'en',
                   ));
-
-                  // Get.updateLocale(Locale('en', 'US'));
                 },
                 contentPadding: EdgeInsets.zero,
                 leading: Image.asset(
@@ -57,8 +55,6 @@ class LanguageScreen extends StatelessWidget {
               ListTile(
                 onTap: () {
                   localeController.setLocale(const Locale('fr'));
-
-                  // Get.updateLocale(Locale('fr', 'FR'));
                 },
                 contentPadding: EdgeInsets.zero,
                 leading: Image.asset(

@@ -77,3 +77,37 @@ class MapScreen extends StatelessWidget {
     );
   }
 }
+// /// open_street_map_search_and_pick
+// import 'package:flutter/material.dart';
+// import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
+// import 'package:too_good_to_go_app/utils/constant/app_colors.dart';
+//
+// class MapScreen extends StatefulWidget {
+//   const MapScreen({super.key});
+//
+//   @override
+//   State<MapScreen> createState() => _MapScreenState();
+// }
+//
+// class _MapScreenState extends State<MapScreen> {
+//   String locationAddress = 'sf';
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Container(
+//         child: OpenStreetMapSearchAndPick(
+//             baseUri: 'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=0abb3e6ee9b946dd972323106b248442',
+//             buttonColor: AppColors.kPrimaryColor,
+//             buttonText: 'Set Current Location',
+//             onPicked: (pickedData) {
+//               setState(() {
+//                 //print(pickedData.latLong.toString());
+//
+//                 locationAddress = pickedData.address.toString();
+//               });
+//             }),
+//       ),
+//     );
+//   }
+// }

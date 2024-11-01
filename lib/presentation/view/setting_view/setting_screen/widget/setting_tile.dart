@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../../../utils/constant/app_colors.dart';
 import '../../../../../utils/constant/sizes.dart';
@@ -29,7 +28,6 @@ class SettingTile extends StatelessWidget {
           circleColor: AppColors.white,
         ),
         title: Text(title),
-        // trailing: Icon(Iconsax.arrow_right_25),
       ),
     );
   }
