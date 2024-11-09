@@ -174,6 +174,8 @@ Map<String, String> fr = {
   'totalAmount': 'Montant total',
   'address': 'Adresse',
   'addressOf': 'Adresse du restaurant.',
-  'reviewed':'Révisé',
-  'addYourReview':'Ajoutez votre avis',
+  'reviewed': 'Révisé',
+  'addYourReview': 'Ajoutez votre avis',
+  "businessProfile": "Profil d'entreprise",
+  "clientProfile": 'Profil client',
 };

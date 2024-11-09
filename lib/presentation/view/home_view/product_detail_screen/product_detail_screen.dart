@@ -112,22 +112,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             8.sW,
 
                             /// heart
-                            CustomIconButton(
-                              onTapp: () {
-                                if (productController.isFav.value) {
-                                  /// this is a product id
-                                  productController.removeFavourite(widget.data.id, context);
-                                  //controller.isFav(false);
-                                } else {
-                                  productController.addToFavourite(widget.data.id, context);
-                                  print(widget.data.id);
-                                  //controller.isFav(true);
-                                }
-                              },
-                              iconColor: AppColors.yellowColor,
-                              iconData: widget.data['p_Whishlist'].contains(FirebaseAuth.instance.currentUser!.uid)
-                                  ? Iconsax.heart5
-                                  : Iconsax.heart,
+                            Obx(
+                              () => CustomIconButton(
+                                onTapp: () {
+                                  if (productController.isFav.value) {
+                                    /// this is a product id
+                                    productController.removeFavourite(widget.data.id, context);
+
+                                    productController.isFav.value = false;
+                                  } else {
+                                    productController.addToFavourite(widget.data.id, context);
+                                    print(widget.data.id);
+
+                                    productController.isFav.value = true;
+                                  }
+                                },
+                                iconColor: AppColors.yellowColor,
+                                iconData: productController.isFav.value ? Iconsax.heart5 : Iconsax.heart,
+                              ),
                             ),
                           ],
                         ),
@@ -701,8 +703,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final productName = productDetails['pName'];
     final productDescription = productDetails['pDescription'];
     final productImage = productDetails['pImage'];
-    final productLink =
-        'https://yourapp.com/products/${productDetails['pId']}';
+    final productLink = 'https://yourapp.com/products/${productDetails['pId']}';
 
     final shareContent = '''
     Check out this product!

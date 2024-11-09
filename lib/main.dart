@@ -25,14 +25,15 @@ void main() async {
   });
   await NotificationPermision().requestPermission();
   Stripe.publishableKey =
-  'pk_test_51O2bQ9HNCdxitP0OX8PiuBGdUIDj2OZlQtAdsViuviCJXFlr3MKdm8sbn3y1YKJ9BkoM9T9u0iS1YFYQtBCDV7yO00KQOUVsdK';
+      'pk_test_51O2bQ9HNCdxitP0OX8PiuBGdUIDj2OZlQtAdsViuviCJXFlr3MKdm8sbn3y1YKJ9BkoM9T9u0iS1YFYQtBCDV7yO00KQOUVsdK';
 
   await GetStorage.init();
   final LocalizationController localeController = Get.put(LocalizationController());
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
   OneSignal.initialize(oneSignalAppId);
   OneSignal.Notifications.addClickListener((OSNotificationClickEvent event) {
-    if (event.notification.additionalData!["custom_data"]["NOTIFICATION_TYPE"] == "MESSAGE_NOTIFICATION") {} else {}
+    if (event.notification.additionalData!["custom_data"]["NOTIFICATION_TYPE"] == "MESSAGE_NOTIFICATION") {
+    } else {}
   });
 
   runApp(MyApp());

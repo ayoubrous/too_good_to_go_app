@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:too_good_to_go_app/controller/login_controller.dart';
 import 'package:too_good_to_go_app/controller/profile_controller.dart';
@@ -141,36 +142,6 @@ class _SettingScreenState extends State<SettingScreen> {
                       8.sH,
                       const Divider(),
                       8.sH,
-                      isBusiness
-                          ? Column(
-                              children: [
-                                SettingTile(
-                                    title: 'businessRegistration'.tr,
-                                    onTap: () {
-                                      Get.to(() => BusinessRegistrationScreen());
-                                    },
-                                    icon: Icons.business_center_outlined),
-                                SettingTile(
-                                    title: 'myListing'.tr,
-                                    onTap: () {
-                                      Get.to(() => MyListingScreen());
-                                    },
-                                    icon: Iconsax.note),
-                              ],
-                            )
-                          : SizedBox(),
-                      SettingTile(
-                          title: 'favourite'.tr,
-                          onTap: () {
-                            Get.to(() => const FavoriteScreen());
-                          },
-                          icon: CupertinoIcons.heart),
-                      SettingTile(
-                          title: 'myOrders'.tr,
-                          onTap: () {
-                            Get.to(() => OrderScreen());
-                          },
-                          icon: CupertinoIcons.car),
                       SettingTile(
                           title: 'languages'.tr,
                           onTap: () {
@@ -185,7 +156,11 @@ class _SettingScreenState extends State<SettingScreen> {
                           icon: Icons.contact_mail_outlined),
                       SettingTile(
                           title: 'Logout'.tr,
-                          onTap: () {
+                          onTap: () async {
+                            GoogleSignIn googleSignIn = GoogleSignIn();
+                            await googleSignIn.signOut().then((value) {
+                              Get.offAll(() => LoginScreen());
+                            });
                             FirebaseAuth.instance.signOut().then((value) {
                               Get.offAll(() => LoginScreen());
                             });

@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:too_good_to_go_app/presentation/view/setting_view/favorite_screen/favoite_screen.dart';
 import 'package:too_good_to_go_app/utils/constant/app_colors.dart';
 import 'package:too_good_to_go_app/utils/constant/image_string.dart';
 import 'package:too_good_to_go_app/utils/constant/sizes.dart';
 
+import '../../setting_view/profile_screen.dart';
 import '../../setting_view/setting_screen/setting_screen.dart';
 import '../home_screen/home_screen.dart';
 
@@ -21,6 +23,12 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.house_fill, size: 24),
         inactiveIcon: const Icon(CupertinoIcons.house, size: 24),
+        activeColorPrimary: AppColors.kPrimaryColor,
+        inactiveColorPrimary: AppColors.greyColor,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(CupertinoIcons.heart_fill, size: 24),
+        inactiveIcon: const Icon(CupertinoIcons.heart, size: 24),
         activeColorPrimary: AppColors.kPrimaryColor,
         inactiveColorPrimary: AppColors.greyColor,
       ),
@@ -47,6 +55,12 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
       //   inactiveColorPrimary: AppColors.greyColor,
       // ),
       PersistentBottomNavBarItem(
+        icon: Icon(Icons.person, size: 24),
+        inactiveIcon: Icon(Icons.person_outline, size: 24),
+        activeColorPrimary: AppColors.kPrimaryColor,
+        inactiveColorPrimary: AppColors.greyColor,
+      ),
+      PersistentBottomNavBarItem(
         icon: Icon(Icons.settings, size: 24),
         inactiveIcon: Icon(Icons.settings_outlined, size: 24),
         activeColorPrimary: AppColors.kPrimaryColor,
@@ -57,7 +71,9 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
 
   List<Widget> screenList = [
     HomeScreen(),
+    FavoriteScreen(),
     SizedBox(),
+    ProfileScreen(),
     SettingScreen(),
   ];
 
