@@ -178,6 +178,8 @@ Map<String, String> eng = {
   'totalAmount': 'Total Amount',
   'address': 'Address',
   'addressOf': 'Address of restaurant.',
-  'reviewed':'Reviewed',
-  'addYourReview':'Add your review',
+  'reviewed': 'Reviewed',
+  'addYourReview': 'Add your review',
+  "businessProfile":'Business Profile',
+  "clientProfile":'Client Profile',
 };

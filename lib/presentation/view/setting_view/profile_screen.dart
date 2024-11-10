@@ -20,19 +20,19 @@ import 'package:too_good_to_go_app/utils/constant/sizes.dart';
 import 'package:too_good_to_go_app/utils/theme/theme.dart';
 
 import '../../../../utils/constant/image_string.dart';
-import '../favorite_screen/favoite_screen.dart';
-import '../my_listing_screen/my_listing_screen.dart';
-import '../personal_info_screen/personal_info_screen.dart';
-import 'widget/setting_tile.dart';
+import 'favorite_screen/favoite_screen.dart';
+import 'my_listing_screen/my_listing_screen.dart';
+import 'personal_info_screen/personal_info_screen.dart';
+import 'setting_screen/widget/setting_tile.dart';
 
-class SettingScreen extends StatefulWidget {
-  const SettingScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
@@ -47,7 +47,8 @@ class _SettingScreenState extends State<SettingScreen> {
     return Obx(
       () => Scaffold(
         appBar: AppBar(
-          title: Text('setting'.tr),
+          title: Text(isBusiness ? 'businessProfile'.tr : 'clientProfile'.tr)
+          ,
         ),
         body: profileController.isBlocked.value
             ? Center(
@@ -131,7 +132,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           CustomIconButton(
                             onTapp: () {
                               Get.to(
-                                () => const PersonalInfoScreen(),
+                                () => PersonalInfoScreen(),
                               );
                             },
                             iconData: Iconsax.edit,
@@ -157,46 +158,76 @@ class _SettingScreenState extends State<SettingScreen> {
                                       Get.to(() => MyListingScreen());
                                     },
                                     icon: Iconsax.note),
+                                SettingTile(
+                                    title: 'myOrders'.tr,
+                                    onTap: () {
+                                      Get.to(() => OrderScreen());
+                                    },
+                                    icon: CupertinoIcons.car),
+                                SettingTile(
+                                  title: 'notification'.tr,
+                                  onTap: () {},
+                                  icon: CupertinoIcons.bell,
+                                ),
                               ],
                             )
-                          : SizedBox(),
-                      SettingTile(
-                          title: 'favourite'.tr,
-                          onTap: () {
-                            Get.to(() => const FavoriteScreen());
-                          },
-                          icon: CupertinoIcons.heart),
-                      SettingTile(
-                          title: 'myOrders'.tr,
-                          onTap: () {
-                            Get.to(() => OrderScreen());
-                          },
-                          icon: CupertinoIcons.car),
-                      SettingTile(
-                          title: 'languages'.tr,
-                          onTap: () {
-                            Get.to(() => const LanguageScreen());
-                          },
-                          icon: Icons.language),
-                      SettingTile(
-                          title: 'contactus'.tr,
-                          onTap: () {
-                            Get.to(() => ContactUsScreen());
-                          },
-                          icon: Icons.contact_mail_outlined),
-                      SettingTile(
-                          title: 'Logout'.tr,
-                          
-                          onTap: () async {
-                            GoogleSignIn googleSignIn = GoogleSignIn();
-                            await googleSignIn.signOut().then((value) {
-                              Get.offAll(() => LoginScreen());
-                            });
-                            FirebaseAuth.instance.signOut().then((value) {
-                              Get.offAll(() => LoginScreen());
-                            });
-                          },
-                          icon: Iconsax.logout),
+                          : Column(
+                              children: [
+                                SettingTile(
+                                    title: 'Personal Info'.tr,
+                                    onTap: () {
+                                      Get.to(() => PersonalInfoScreen());
+                                    },
+                                    icon: CupertinoIcons.person),
+                                SettingTile(
+                                    title: 'myOrders'.tr,
+                                    onTap: () {
+                                      Get.to(() => OrderScreen());
+                                    },
+                                    icon: CupertinoIcons.car),
+                                SettingTile(
+                                  title: 'Notification',
+                                  onTap: () {},
+                                  icon: CupertinoIcons.bell,
+                                ),
+                              ],
+                            ),
+                      // SettingTile(
+                      //     title: 'favourite'.tr,
+                      //     onTap: () {
+                      //       Get.to(() => const FavoriteScreen());
+                      //     },
+                      //     icon: CupertinoIcons.heart),
+                      // SettingTile(
+                      //     title: 'myOrders'.tr,
+                      //     onTap: () {
+                      //       Get.to(() => OrderScreen());
+                      //     },
+                      //     icon: CupertinoIcons.car),
+                      // SettingTile(
+                      //     title: 'languages'.tr,
+                      //     onTap: () {
+                      //       Get.to(() => const LanguageScreen());
+                      //     },
+                      //     icon: Icons.language),
+                      // SettingTile(
+                      //     title: 'contactus'.tr,
+                      //     onTap: () {
+                      //       Get.to(() => ContactUsScreen());
+                      //     },
+                      //     icon: Icons.contact_mail_outlined),
+                      // SettingTile(
+                      //     title: 'Logout'.tr,
+                      //     onTap: () async {
+                      //       GoogleSignIn googleSignIn = GoogleSignIn();
+                      //       await googleSignIn.signOut().then((value) {
+                      //         Get.offAll(() => LoginScreen());
+                      //       });
+                      //       FirebaseAuth.instance.signOut().then((value) {
+                      //         Get.offAll(() => LoginScreen());
+                      //       });
+                      //     },
+                      //     icon: Iconsax.logout),
                       const SizedBox(height: kToolbarHeight * 1.2),
                     ],
                   ),

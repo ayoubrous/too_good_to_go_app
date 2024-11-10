@@ -128,6 +128,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               iconData: widget.data['p_Whishlist'].contains(FirebaseAuth.instance.currentUser!.uid)
                                   ? Iconsax.heart5
                                   : Iconsax.heart,
+
                             ),
                           ],
                         ),
@@ -703,6 +704,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final productImage = productDetails['pImage'];
     final productLink =
         'https://yourapp.com/products/${productDetails['pId']}'; // Replace with your actual product link
+
 
     final shareContent = '''
     Check out this product!

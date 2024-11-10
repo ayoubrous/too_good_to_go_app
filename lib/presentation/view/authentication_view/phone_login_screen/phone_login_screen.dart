@@ -180,7 +180,6 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
                         if (phoneController.text.isEmpty) {
                           BLoaders.warningSnackBar(title: 'warning'.tr, messagse: 'pleaseEnterthePhoneNumber'.tr);
                         } else {
-
                           _handlePhoneSignIn();
                         }
                         // Get.to(() => const OtpScreen());

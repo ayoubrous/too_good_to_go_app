@@ -15,7 +15,7 @@ class CustomLoader extends StatelessWidget {
       isLoading: isLoading,
       color: AppColors.kPrimaryColor,
       opacity: 0.2,
-      progressIndicator: SpinKitWaveSpinner(
+      progressIndicator: const SpinKitWaveSpinner(
         trackColor: AppColors.textFieldGreyColor,
         waveColor: AppColors.kPrimaryColor,
         color: AppColors.kPrimaryColor,

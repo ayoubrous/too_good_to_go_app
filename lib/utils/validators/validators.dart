@@ -30,11 +30,16 @@ class BValidators {
      return "Password must contain at least one upper case letter";
    }
 
-  /// Vérifier la présence d'un chiffre
-   if (!value.contains(RegExp(r"[0-9]"))) {
-    return "Password must contain at least one number";
-  }
 
+    /// chect number
+    if (!value.contains(RegExp(r"[0-9]"))) {
+      return "Password must contain at least one number";
+    }
+    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return "Password must contain at least one special character";
+    }
+    return null;
+  
   /// Vérifier la présence d'un caractère spécial
   if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
      return "Password must contain at least one special character";

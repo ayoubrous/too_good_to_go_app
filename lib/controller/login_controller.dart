@@ -27,7 +27,7 @@ class LoginController extends GetxController {
     super.onInit();
     email.text = localStorage.read('REMEMBER-ME_EMAIL') ?? '';
     password.text = localStorage.read('REMEMBER-ME_PASSWORD') ?? '';
-    rememberMe.value=localStorage.read('REMEMBER-ME') ??false;
+    rememberMe.value = localStorage.read('REMEMBER-ME') ?? false;
     getUserAccountStatus();
     // email.text = storedEmail;
     // password.text = storedPassword;
@@ -82,7 +82,5 @@ class LoginController extends GetxController {
       });
     }
   }
-
-
 
 }
