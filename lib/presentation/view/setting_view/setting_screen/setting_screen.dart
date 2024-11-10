@@ -44,6 +44,7 @@ class _SettingScreenState extends State<SettingScreen> {
     final profileController = Get.put(ProfileController());
     final loginCOntroller = Get.put(LoginController());
     return Obx(
+
       () => Scaffold(
         appBar: AppBar(
           title: Text('setting'.tr),
