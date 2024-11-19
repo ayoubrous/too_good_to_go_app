@@ -126,6 +126,7 @@ class ProductController extends GetxController {
       'pBusinessImage': pBusinessImage,
       "p_Whishlist": FieldValue.arrayUnion([]),
       'rating': 2.0,
+      'createdAt': DateTime.now(),
     }).then((value) {
       // isLoading(false);
       Get.back();
@@ -276,7 +277,7 @@ class ProductController extends GetxController {
       FirebaseFirestore.instance.collection('cart').get().then((QuerySnapshot querySnapshot) {
         for (var element in querySnapshot.docs) {
           update();
-          allcartItemList.add(element.data());
+          allcartItemList.add(element.data() as Map<String, dynamic>);
         }
       });
     }

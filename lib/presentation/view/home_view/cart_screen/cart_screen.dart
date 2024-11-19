@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:too_good_to_go_app/controller/product_controller.dart';
 import 'package:too_good_to_go_app/presentation/elements/custom_back_button.dart';
@@ -93,7 +92,7 @@ class _CartScreenState extends State<CartScreen> {
                             child: Row(
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(left: 8),
+                                  margin: const EdgeInsets.only(left: 8),
                                   clipBehavior: Clip.antiAlias,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12),
@@ -196,6 +195,8 @@ class _CartScreenState extends State<CartScreen> {
                             await makePayment(
                               totalPrice: productController.cartTotalPrice.value.toString(),
                               data: productController.allcartItemList,
+                              // pStartTime: '',
+                              // pEndTime: '',
                             );
                           },
                         ),
@@ -212,16 +213,17 @@ class _CartScreenState extends State<CartScreen> {
   Map<String, dynamic>? paymentIntentData;
 
   // function 1
-  Future<void> makePayment({required totalPrice, required List<dynamic> data}) async {
+  Future<void> makePayment({
+    required totalPrice,
+    required List<dynamic> data,
+    // pStartTime,
+    // pEndTime,
+  }) async {
     try {
       paymentIntentData = await createPaymentIntent(totalPrice.toString(), 'USD');
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
-            paymentIntentClientSecret: paymentIntentData!['client_secret'],
-            // applePay: PaymentSheetApplePay(
-            //   merchantCountryCode: 'US',
-            // ),
-            merchantDisplayName: 'BASIT'),
+            paymentIntentClientSecret: paymentIntentData!['client_secret'], merchantDisplayName: 'BASIT'),
       );
       // display sheet
       displayPaymentSheet(totalPrice, data);
@@ -230,12 +232,26 @@ class _CartScreenState extends State<CartScreen> {
     }
   }
 
-  // function 2
-  displayPaymentSheet(totalPrice, List<dynamic> data) async {
+  ///----------------///
+
+
+  String generateOTP(int length) {
+    final random = Random();
+    const characters = '0123456789';
+    return List.generate(length, (index) => characters[random.nextInt(characters.length)]).join();
+  }
+
+
+
+  displayPaymentSheet(
+    totalPrice,
+    List<dynamic> data,
+  ) async {
     try {
       await Stripe.instance.presentPaymentSheet(
         options: const PaymentSheetPresentOptions(),
       );
+
       setState(() {
         paymentIntentData = null;
       });
@@ -252,42 +268,88 @@ class _CartScreenState extends State<CartScreen> {
         margin: const EdgeInsets.all(8),
         icon: const Icon(Icons.done_all, color: AppColors.white),
       );
+
       List<Map<String, dynamic>> orderItems = [];
       for (var doc in data) {
-        // setState(() {});
-        //orderItems.clear();
-        orderItems.add(doc.data() as Map<String, dynamic>);
-      }
-      // Get.to(
-      //       () => GiveReviewScreen(
-      //     productID: widget.data['pId'],
-      //     businessName: widget.data['pBusinessName'],
-      //     productName: widget.data['pName'],
-      //   ),
-      // );
-      /// order collection
-      await addOrderToFirestore(orderItems, totalPrice);
-      print(orderItems.length);
+        var itemData = doc.data() as Map<String, dynamic>;
 
-      // String oderId = BackEndConfig.orderCollection.doc().id;
-      // BackEndConfig.orderCollection.doc(oderId).set({
-      //   'oder_id': oderId,
-      //   'cart_items': data,
-      //   // 'uid': FirebaseAuth.instance.currentUser!.uid,
-      //   // 'product_id': pId,
-      //   // 'total_price': totalPrice,
-      //   // 'order_product_image': productImage,
-      //   // 'qty': noOfItems,
-      //   // 'time': DateFormat('dd-MM-yyyy').format(DateTime.now()),
-      // });
+        // Add OTP and visibility flag
+        itemData['otp'] = generateOTP(4); // Adjust length as needed
+        itemData['isOTPObscure'] = true; // Default to hidden
+        orderItems.add(itemData);
+      }
+
+      /// Save the order collection to Firestore
+      await addOrderToFirestore(orderItems, totalPrice);
+
+      print(orderItems.length);
+      print(orderItems);
     } on StripeException catch (e) {
       print(e.toString());
-      showDialog(
-        barrierDismissible: false,
+
+      showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+        ),
         context: context,
-        builder: (_) => AlertDialog(
-          title: Text('error'.tr),
-          content: const Text('Cancel'),
+        builder: (_) => Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                  'Payment Failed',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ),
+              const Divider(),
+              Text(
+                'Please try again or choose an option.',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColors.kPrimaryColor,
+                    foregroundColor: AppColors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    await displayPaymentSheet(
+                      totalPrice,
+                      data,
+                    );
+                  },
+                  child: const Text('Retry Payment'),
+                ),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColors.kPrimaryColor,
+                    foregroundColor: AppColors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Get.to(() => const CartScreen());
+                  },
+                  child: Text('Back to Cart'.tr),
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -318,39 +380,59 @@ class _CartScreenState extends State<CartScreen> {
     return price.toString();
   }
 
-  Future<void> addOrderToFirestore(List<dynamic> data, String totalPrice) async {
-    String orderId = BackEndConfig.orderCollection.doc().id;
 
-    await BackEndConfig.orderCollection.doc(orderId).set({
-      'order_id': orderId,
-      'cart_items': data,
-      'uid': FirebaseAuth.instance.currentUser!.uid,
-      'total_price': totalPrice,
-      'time': DateFormat('dd-MM-yyyy').format(DateTime.now()),
-    }).then((value) async {
-      Get.to(
-        () => SuccessScreen(
-        ),
-      );
-      // for (var item in productController.productSnapshot) {
-      //   setState(() {});
-      //   //productSnapshotItems.clear();
-      //   FirebaseFirestore.instance.collection('cart').doc(item.id).delete();
-      // }
+
+  /// ---------done one---------- ///
+  Future<void> addOrderToFirestore(
+    List<dynamic> data,
+    String totalPrice,
+  ) async {
+    try {
+      String orderId = BackEndConfig.orderCollection.doc().id;
+
+      // Generate a random 4-digit OTP
+      String generateOTP() {
+        final random = Random();
+        return (1000 + random.nextInt(9000)).toString();
+      }
+
+      String otp = generateOTP();
+      DateTime expiryTime = DateTime.now().add(Duration(minutes: 15));
+
+      // Add the order along with OTP and expiration time
+      await BackEndConfig.orderCollection.doc(orderId).set({
+        'order_id': orderId,
+        'cart_items': data,
+        'uid': FirebaseAuth.instance.currentUser!.uid,
+        'total_price': totalPrice.toString(),
+        'time': DateFormat('dd-MM-yyyy').format(DateTime.now()),
+        // 'otp': otp,
+        'isScanned': false,
+        'expiryTime': expiryTime.toIso8601String(),
+      });
+
+      // Navigate to the success screen
+      Get.to(() => SuccessScreen());
+
+      // Clear the cart
       productController.clearCart();
-      // await removeOldCartProducts(data);
-    });
-    print("Order added successfully with ID: $orderId");
-  }
 
-// Future<void> removeOldCartProducts(List<dynamic> cartItems) async {
-//   List<DocumentReference> cartItemReferences = [];
-//   for (var item in cartItems) {
-//     cartItemReferences.add(item.reference);
-//   }
-//
-//   await Future.forEach(cartItemReferences, (DocumentReference reference) async {
-//     await reference.delete();
-//   });
-// }
+      // Display the OTP to the user
+      Get.snackbar(
+        'Order Placed',
+        'Your OTP is: $otp\nPlease show it at the store.',
+        isDismissible: true,
+        shouldIconPulse: true,
+        colorText: AppColors.white,
+        backgroundColor: AppColors.kGreenColor,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 5),
+        margin: const EdgeInsets.all(8),
+        icon: const Icon(Icons.done_all, color: AppColors.white),
+      );
+      print("Order added successfully with ID: $orderId and OTP: $otp");
+    } catch (e) {
+      print("Error adding order: $e");
+    }
+  }
 }

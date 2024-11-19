@@ -134,34 +134,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         controller: controller.pTotalItemLeft,
                         validator: (v) => BValidators.validateEmptyText('total item', v),
                       ),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: CustomTextField(
-                      //         hintText: 'actualPrice'.tr,
-                      //         textInputType: TextInputType.number,
-                      //         controller: controller.pActualPrice,
-                      //       ),
-                      //     ),
-                      //     10.sW,
-                      //     Expanded(
-                      //       child: CustomTextField(
-                      //         hintText: 'disPrice'.tr,
-                      //         textInputType: TextInputType.number,
-                      //         controller: controller.pDisPrice,
-                      //         onValueChanged: (value) {
-                      //           // Ensure that the discounted price is less than the actual price
-                      //           double actualPrice = double.tryParse(controller.pActualPrice.text) ?? 0;
-                      //           double disPrice = double.tryParse(value) ?? 0;
-                      //           if (disPrice >= actualPrice) {
-                      //             // Reset the discounted price if it's greater than or equal to the actual price
-                      //             controller.pDisPrice.text = '';
-                      //           }
-                      //         },
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -201,14 +173,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           ),
                         ],
                       ),
-
                       8.sH,
                       Text(
                         'collectionTime'.tr,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       10.sH,
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -277,7 +247,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           ),
                         ),
                       ),
-
                       25.sH,
                       CustomButton(
                         text: 'upload'.tr,

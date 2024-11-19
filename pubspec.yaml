@@ -50,6 +50,7 @@ dependencies:
   haptic_feedback: ^0.4.2
   share:
   win32: ^5.7.2
+  flutter_countdown_timer: ^4.1.0
 
 
 

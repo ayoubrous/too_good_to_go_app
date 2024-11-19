@@ -1,14 +1,10 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -16,7 +12,6 @@ import 'package:share/share.dart';
 import 'package:too_good_to_go_app/controller/product_controller.dart';
 import 'package:too_good_to_go_app/presentation/elements/custom_button.dart';
 import 'package:too_good_to_go_app/utils/constant/app_colors.dart';
-import 'package:too_good_to_go_app/utils/constant/back_end_config.dart';
 import 'package:too_good_to_go_app/utils/constant/loaders.dart';
 import 'package:too_good_to_go_app/utils/constant/sizes.dart';
 import 'package:too_good_to_go_app/utils/theme/theme.dart';
@@ -24,7 +19,6 @@ import 'package:too_good_to_go_app/utils/theme/theme.dart';
 import '../../../../controller/localization_controller.dart';
 import '../../../elements/dialog_box.dart';
 import '../../../elements/icon_button.dart';
-import '../give_review_screen/give_review_screen.dart';
 import '../review_screen/review_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -40,13 +34,38 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  List reviews = [];
+
+  late DateTime startTime;
+  late DateTime endTime;
+
   @override
   void initState() {
     super.initState();
+
+    // Parse the pStartTime and pEndTime into DateTime objects
+    startTime = _parseTime(widget.data['pStartTime']);
+    endTime = _parseTime(widget.data['pEndTime']);
+
     _getReviews(widget.data['pId']);
   }
 
-  List reviews = [];
+  /// Helper function to parse time
+  DateTime _parseTime(String timeString) {
+    try {
+      final DateFormat formatter = DateFormat("HH:mm"); // Adjust format if needed
+      return formatter.parse(timeString);
+    } catch (e) {
+      print("Error parsing time: $e");
+      return DateTime.now(); // Default to current time on failure
+    }
+  }
+
+  /// Helper function to format time for display
+  String _formatTime(DateTime time) {
+    final DateFormat formatter = DateFormat.jm(); // 12-hour format with AM/PM
+    return formatter.format(time);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -300,6 +319,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           '${widget.data['pStartTime'].toString()} - ${widget.data['pEndTime'].toString()}',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
+                        // Text('${_formatTime(startTime)} - ${_formatTime(endTime)}'),
                       ],
                     ),
                     10.sH,
@@ -429,11 +449,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       text: 'Add To Cart',
                       onTapped: () {
                         if (productController.item.value > 0) {
+                          String formattedStartTime = _formatTime(startTime); // E.g., "9:00 AM"
+                          String formattedEndTime = _formatTime(endTime);
                           FirebaseFirestore.instance.collection('cart').doc().set({
                             'pName': widget.data['pName'],
                             'pImage': widget.data['pImage'],
                             'pId': widget.data['pId'],
                             'isReviewed': false,
+                            // 'pEndTime': formattedEndTime,
+                            'pEndTime': widget.data['pEndTime'],
+                            'pStartTime': widget.data['pStartTime'],
+                            // 'pStartTime': formattedStartTime,
                             'businessName': widget.data['pBusinessName'],
                             'addedBy': FirebaseAuth.instance.currentUser!.uid,
                             'qty': productController.item.value.toString(),
@@ -452,125 +478,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       },
                     ),
 
-                    // 60.sH,
-                    // CustomButton(
-                    //   onTapped: () {
-                    //     Get.bottomSheet(
-                    //       backgroundColor: AppColors.white,
-                    //       shape: const RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizes.borderRadiusLg))),
-                    //       Container(
-                    //         padding: const EdgeInsets.all(12),
-                    //         child: Column(
-                    //           mainAxisSize: MainAxisSize.min,
-                    //           crossAxisAlignment: CrossAxisAlignment.center,
-                    //           children: [
-                    //             Image.asset(
-                    //               AppImages.appLogo,
-                    //               width: 70,
-                    //             ),
-                    //             20.sH,
-                    //             const Divider(),
-                    //             Row(
-                    //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //               children: [
-                    //                 Text(
-                    //                   'selectQuantity'.tr,
-                    //                   style: Theme.of(context)
-                    //                       .textTheme
-                    //                       .titleMedium!
-                    //                       .copyWith(fontWeight: FontWeight.bold),
-                    //                 ),
-                    //                 Obx(
-                    //                   () => Text(
-                    //                     "\$${productController.totalPrice.value.toString()}",
-                    //                     style: Theme.of(context)
-                    //                         .textTheme
-                    //                         .bodyLarge!
-                    //                         .copyWith(fontWeight: FontWeight.bold, color: AppColors.kPrimaryColor),
-                    //                   ),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //             15.sH,
-                    //             Obx(
-                    //               () => Row(
-                    //                 mainAxisAlignment: MainAxisAlignment.center,
-                    //                 children: [
-                    //                   IconButton(
-                    //                     style: IconButton.styleFrom(
-                    //                         backgroundColor: AppColors.kPrimaryColor.withOpacity(0.5)),
-                    //                     color: AppColors.kPrimaryColor,
-                    //                     onPressed: () {
-                    //                       productController.decrementQuantity();
-                    //                       productController.calculateTotalPrice(int.parse(widget.data['pDisPrice']));
-                    //                     },
-                    //                     icon: const Icon(
-                    //                       Iconsax.minus,
-                    //                       color: AppColors.textFieldGreyColor,
-                    //                     ),
-                    //                   ),
-                    //                   8.sW,
-                    //                   Text(
-                    //                     productController.item.value.toString(),
-                    //                     style: Theme.of(context)
-                    //                         .textTheme
-                    //                         .bodyLarge!
-                    //                         .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-                    //                   ),
-                    //                   8.sW,
-                    //                   IconButton(
-                    //                     style: IconButton.styleFrom(backgroundColor: AppColors.kPrimaryColor),
-                    //                     color: AppColors.kPrimaryColor,
-                    //                     onPressed: () {
-                    //                       productController.incrementQuantity(int.parse(widget.data['pTotalItemLeft']));
-                    //                       productController.calculateTotalPrice(int.parse(widget.data['pDisPrice']));
-                    //                     },
-                    //                     icon: const Icon(
-                    //                       Iconsax.add,
-                    //                       color: AppColors.textFieldGreyColor,
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //             ),
-                    //             20.sH,
-                    //             Padding(
-                    //               padding: const EdgeInsets.symmetric(horizontal: 100),
-                    //               child: CustomButton(
-                    //                 text: 'pay'.tr,
-                    //                 onTapped: () async {
-                    //                   if (productController.item.value > 0) {
-                    //                     await makePayment(
-                    //                         productController.totalPrice.value, productController.item.value);
-                    //                     Get.back();
-                    //                     productController.item.value = 0;
-                    //                     productController.totalPrice.value = 0;
-                    //                   } else {
-                    //                     BLoaders.warningSnackBar(
-                    //                         title: 'Item', messagse: 'Select Atleast Minimum 1 Item');
-                    //                   }
-                    //
-                    //                   // PersistentNavBarNavigator.pushNewScreen(
-                    //                   //   context,
-                    //                   //   screen: GiveReviewScreen(
-                    //                   //     productID: widget.data['pId'],
-                    //                   //     businessName: widget.data['pBusinessName'],
-                    //                   //     productName: widget.data['pName'],
-                    //                   //   ),
-                    //                   //   withNavBar: true,
-                    //                   //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                    //                   // );
-                    //                 },
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     );
-                    //   },
-                    //   text: 'buy'.tr,
-                    // ),
+
                   ],
                 ),
               ),
@@ -595,107 +503,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         setState(() {});
       });
     });
-  }
-
-  /// Stripe
-  Map<String, dynamic>? paymentIntentData;
-
-  // function 1
-  Future<void> makePayment(totalPrice, noOfItems) async {
-    try {
-      paymentIntentData = await createPaymentIntent(totalPrice.toString(), 'USD');
-      await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-            paymentIntentClientSecret: paymentIntentData!['client_secret'],
-            // applePay: PaymentSheetApplePay(
-            //   merchantCountryCode: 'US',
-            // ),
-            merchantDisplayName: 'BASIT'),
-      );
-      // display sheet
-      displayPaymentSheet(totalPrice, noOfItems);
-    } catch (e) {
-      print('exception' + e.toString());
-    }
-  }
-
-  // function 2
-  displayPaymentSheet(totalPrice, noOfItems) async {
-    try {
-      await Stripe.instance.presentPaymentSheet(
-        options: const PaymentSheetPresentOptions(),
-      );
-      setState(() {
-        paymentIntentData = null;
-      });
-
-      Get.snackbar(
-        'Success',
-        'Paid Successfully',
-        isDismissible: true,
-        shouldIconPulse: true,
-        colorText: AppColors.white,
-        backgroundColor: AppColors.kGreenColor,
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 3),
-        margin: const EdgeInsets.all(8),
-        icon: const Icon(Icons.done_all, color: AppColors.white),
-      );
-      // Get.to(
-      //   () => GiveReviewScreen(
-      //     productID: widget.data['pId'],
-      //     businessName: widget.data['pBusinessName'],
-      //     productName: widget.data['pName'],
-      //   ),
-      // );
-
-      /// order collection
-      String oderId = BackEndConfig.orderCollection.doc().id;
-      BackEndConfig.orderCollection.doc(oderId).set({
-        'oder_id': oderId,
-        'uid': FirebaseAuth.instance.currentUser!.uid,
-        'product_id': widget.data['pId'],
-        'total_price': totalPrice,
-        'order_product_image': widget.data['pImage'],
-        'qty': noOfItems,
-        'time': DateFormat('dd-MM-yyyy').format(DateTime.now()),
-      });
-    } on StripeException catch (e) {
-      print(e.toString());
-      showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text('error'.tr),
-          content: const Text('Cancel'),
-        ),
-      );
-    }
-  }
-
-  // function 3
-  createPaymentIntent(String amount, String currency) async {
-    try {
-      Map<String, dynamic> body = {
-        'amount': calculateAmount(amount),
-        'currency': currency,
-        'payment_method_types[]': 'card',
-      };
-      var response = await http.post(Uri.parse('https://api.stripe.com/v1/payment_intents'), body: body, headers: {
-        'Authorization':
-            'Bearer sk_test_51O2bQ9HNCdxitP0OOFo3cCnKKiw3zBURyyBNr6MkDyiK8jIjn4pqzCfyLMQBsJ6Qca9HOTDVlzo3DDYXW8GeubBG004tEgSmZZ',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      });
-      return jsonDecode(response.body.toString());
-    } catch (e) {
-      print('exception' + e.toString());
-    }
-  }
-
-  // function 4
-  calculateAmount(String amount) {
-    final price = int.parse(amount) * 100;
-    return price.toString();
   }
 
   void shareProduct() {

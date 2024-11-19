@@ -67,7 +67,7 @@ Map<String, String> eng = {
   'setting': 'Setting',
   'productFromStore': 'Product From Store',
   'personalInfo': 'Personal Info',
-  'businessRegistration': 'Buiseness Registration',
+  'businessRegistration': 'Business Registration',
   'myListing': 'My Listing',
   'myOrders': 'My Orders',
   'favourite': 'Favourite',

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -7,7 +6,6 @@ import 'package:get_storage/get_storage.dart';
 
 import '../presentation/view/authentication_view/login_screen/login_screen.dart';
 import '../presentation/view/home_view/navigation_bar_view/navigation_bar_screen.dart';
-import '../utils/constant/back_end_config.dart';
 import '../utils/constant/loaders.dart';
 
 class AuthController extends GetxController {

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,18 +9,14 @@ import 'package:too_good_to_go_app/controller/login_controller.dart';
 import 'package:too_good_to_go_app/controller/profile_controller.dart';
 import 'package:too_good_to_go_app/presentation/elements/icon_button.dart';
 import 'package:too_good_to_go_app/presentation/view/authentication_view/login_screen/login_screen.dart';
-import 'package:too_good_to_go_app/presentation/view/setting_view/business_registration/business_registration.dart';
 import 'package:too_good_to_go_app/presentation/view/setting_view/contact_us_screen/contact_us_screen.dart';
 import 'package:too_good_to_go_app/presentation/view/setting_view/languages_screen/language_screen.dart';
-import 'package:too_good_to_go_app/presentation/view/setting_view/order_screen/order_screen.dart';
 import 'package:too_good_to_go_app/utils/constant/app_colors.dart';
 import 'package:too_good_to_go_app/utils/constant/back_end_config.dart';
 import 'package:too_good_to_go_app/utils/constant/sizes.dart';
 import 'package:too_good_to_go_app/utils/theme/theme.dart';
 
 import '../../../../utils/constant/image_string.dart';
-import '../favorite_screen/favoite_screen.dart';
-import '../my_listing_screen/my_listing_screen.dart';
 import '../personal_info_screen/personal_info_screen.dart';
 import 'widget/setting_tile.dart';
 
@@ -41,7 +36,6 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final authController = Get.put(AuthController());
     final profileController = Get.put(ProfileController());
     final loginCOntroller = Get.put(LoginController());
     return Obx(

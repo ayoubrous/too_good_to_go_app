@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:too_good_to_go_app/utils/constant/app_colors.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -18,6 +19,7 @@ class CustomTextField extends StatefulWidget {
   final bool enable;
   final bool? readOnly;
   final ValueChanged<String>? onValueChanged;
+  final List<TextInputFormatter>? inputFormatter;
 
   CustomTextField({
     super.key,
@@ -37,6 +39,7 @@ class CustomTextField extends StatefulWidget {
     this.maxline = 1,
     this.isPrefixIcon = false,
     this.readOnly = false,
+    this.inputFormatter,
   });
 
   @override
@@ -51,6 +54,7 @@ class _CuctomTextFieldState extends State<CustomTextField> {
       child: TextFormField(
         onFieldSubmitted: widget.onFieldSubmitted != null ? (value) => widget.onFieldSubmitted!(value) : null,
         // onFieldSubmitted: (value) => widget.onFieldSubmitted!(value),
+        inputFormatters: widget.inputFormatter,
         readOnly: widget.readOnly ?? false,
         maxLines: widget.maxline,
         mouseCursor: MouseCursor.defer,
