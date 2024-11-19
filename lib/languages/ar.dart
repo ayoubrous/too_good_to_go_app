@@ -168,6 +168,7 @@ Map<String, String> arabic = {
   'dateTime': 'التاريخ الوقت:',
   'totalAmount': 'المبلغ الإجمالي',
   'address': 'عنوان',
+
   'addressOf': 'عنوان المطعم.',
   'reviewed': 'تمت المراجعة',
   'addYourReview': 'إضافة تقييمك',

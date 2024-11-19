@@ -82,4 +82,5 @@ class LoginController extends GetxController {
       });
     }
   }
+
 }

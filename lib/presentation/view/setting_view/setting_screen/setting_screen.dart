@@ -136,6 +136,36 @@ class _SettingScreenState extends State<SettingScreen> {
                       8.sH,
                       const Divider(),
                       8.sH,
+                      isBusiness
+                          ? Column(
+                              children: [
+                                SettingTile(
+                                    title: 'businessRegistration'.tr,
+                                    onTap: () {
+                                      Get.to(() => BusinessRegistrationScreen());
+                                    },
+                                    icon: Icons.business_center_outlined),
+                                SettingTile(
+                                    title: 'myListing'.tr,
+                                    onTap: () {
+                                      Get.to(() => MyListingScreen());
+                                    },
+                                    icon: Iconsax.note),
+                              ],
+                            )
+                          : SizedBox(),
+                      SettingTile(
+                          title: 'favourite'.tr,
+                          onTap: () {
+                            Get.to(() => const FavoriteScreen());
+                          },
+                          icon: CupertinoIcons.heart),
+                      SettingTile(
+                          title: 'myOrders'.tr,
+                          onTap: () {
+                            Get.to(() => OrderScreen());
+                          },
+                          icon: CupertinoIcons.car),
                       SettingTile(
                           title: 'languages'.tr,
                           onTap: () {
@@ -150,6 +180,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           icon: Icons.contact_mail_outlined),
                       SettingTile(
                           title: 'Logout'.tr,
+                          
                           onTap: () async {
                             GoogleSignIn googleSignIn = GoogleSignIn();
                             await googleSignIn.signOut().then((value) {

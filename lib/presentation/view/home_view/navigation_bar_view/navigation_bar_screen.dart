@@ -73,7 +73,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
     HomeScreen(),
     FavoriteScreen(),
     SizedBox(),
-    ProfileScreen(),
+
     SettingScreen(),
   ];
 
