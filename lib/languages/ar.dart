@@ -174,4 +174,126 @@ Map<String, String> arabic = {
   'addYourReview': 'إضافة تقييمك',
   "businessProfile": 'الملف التجاري',
   "clientProfile": 'الملف الشخصي للعميل',
+
+  /// privacy policy ///
+  'PrivacyPolicy': 'سياسة الخصوصية',
+  'Introduction': 'مقدمة',
+  'IntroSubTitle':
+      'مرحبًا بكم في [اسم التطبيق الخاص بك]. توضح سياسة الخصوصية هذه كيفية جمع معلوماتك الشخصية واستخدامها والكشف عنها وحمايتها عند استخدامك لتطبيقنا. باستخدام تطبيقنا، فإنك توافق على الممارسات الموضحة في هذه السياسة.',
+  'CollectionofInformation': 'جمع المعلومات',
+  'Wecollectthefollowinginformation': 'نجمع المعلومات التالية:',
+  'PersonalInformationNameEmailAddressphonenumberpostaladdress':
+      'المعلومات الشخصية: الاسم، البريد الإلكتروني، رقم الهاتف، العنوان البريدي.',
+  'PaymentInformationCreditcarddetailsorotherpaymentmethods.':
+      'معلومات الدفع: تفاصيل بطاقة الائتمان أو طرق الدفع الأخرى.',
+  'LocationInformationYourgeographicallocationtoprovidelocalservices':
+      'معلومات الموقع: موقعك الجغرافي لتقديم الخدمات المحلية.',
+  'BrowsingInformationDataaboutyouruseoftheapplicationincludingpagesvisitedandinteractions':
+      'معلومات التصفح: بيانات حول استخدامك للتطبيق، بما في ذلك الصفحات التي تم زيارتها والتفاعلات.',
+  'UseofInformation': 'استخدام المعلومات',
+  'Weuseyourinformationto': 'نستخدم معلوماتك من أجل:',
+  'Provideandimproveourservices': 'تقديم وتحسين خدماتنا.',
+  'Personalizeyouruserexperience': 'تخصيص تجربتك كمستخدم.',
+  'Communicatewithyouaboutyouraccountandourservices': 'التواصل معك بشأن حسابك وخدماتنا.',
+  'Performanalyticsandresearchtoimproveourservices': 'إجراء التحليلات والأبحاث لتحسين خدماتنا.',
+  'SharingofInformation': 'مشاركة المعلومات',
+  'Wemayshareyourinformationwith': 'قد نشارك معلوماتك مع:',
+  'BusinessPartnersToprovidejointservices': 'شركاء الأعمال: لتقديم خدمات مشتركة.',
+  'ServiceProvidersTohelpusprovideourservices': 'مزودي الخدمات: لمساعدتنا في تقديم خدماتنا.',
+  'LegalAuthoritiesIfwearelegallyrequiredtodoso': 'السلطات القانونية: إذا كنا ملزمين قانونيًا بذلك.',
+  'security': 'الأمان',
+  'Wetakereasonablemeasurestoprotectyourpersonalinformationfromunauthorizedaccessdisclosurealterationordestruction':
+      'نتخذ تدابير معقولة لحماية معلوماتك الشخصية من الوصول أو الإفصاح أو التغيير أو التدمير غير المصرح به.',
+  'yourRights': 'حقوقك',
+  'youhavetherightto': 'لديك الحق في:',
+  'accessyourpersonalinformation': 'الوصول إلى معلوماتك الشخصية.',
+  'correctorupdateyourpersonalinformation': 'تصحيح أو تحديث معلوماتك الشخصية.',
+  'requestthedeletionofyourpersonalinformation': 'طلب حذف معلوماتك الشخصية.',
+  'objecttotheprocessingofyourpersonalinformation': 'الاعتراض على معالجة معلوماتك الشخصية.',
+  'changestothePrivacyPolicy': 'تغييرات على سياسة الخصوصية',
+  'wemayupdatethisPrivacyPolicyatanytimeChangeswillbepostedonthispagewiththedateofthelastupdate':
+      'قد نقوم بتحديث سياسة الخصوصية هذه في أي وقت. سيتم نشر التغييرات على هذه الصفحة مع تاريخ آخر تحديث.',
+  'contact': 'تواصل',
+  'foranyquestionsregardingthisPrivacyPolicypleasecontactusatcontactemailaddress':
+      'لأي أسئلة تتعلق بسياسة الخصوصية هذه، يرجى الاتصال بنا على [عنوان البريد الإلكتروني للاتصال].',
+
+  /// term of services
+  // 'termsofService': 'شروط الخدمة',
+  // 'introduction': 'مقدمة',
+  // 'WelcometoTheseTermsofServicegovernyouruseofourapplicationByusingourapplicationyouagreetotheseTermsofService':
+  //     'مرحبًا بك في [اسم تطبيقك]. تحكم شروط الخدمة هذه استخدامك لتطبيقنا. باستخدام تطبيقنا، فإنك توافق على شروط الخدمة هذه.',
+  // 'useoftheApplication': 'استخدام التطبيق',
+  // 'youagreeto': 'أنت توافق على:',
+  // 'usetheapplicationinaccordancewithapplicablelawsandregulations':
+  //     'استخدام التطبيق وفقًا للقوانين واللوائح المعمول بها.',
+  // 'notusetheapplicationforillegalorfraudulentactivities': 'عدم استخدام التطبيق في أنشطة غير قانونية أو احتيالية.',
+  // 'notinterferewiththeoperationoftheapplication': 'عدم التدخل في تشغيل التطبيق.',
+  // 'userAccount': 'حساب المستخدم',
+  // 'tousecertainfeaturesoftheapplicationyoumustcreateanaccountYouareresponsiblefortheconfidentialityofyouraccountandpassword':
+  //     'لاستخدام ميزات معينة من التطبيق، يجب إنشاء حساب. أنت مسؤول عن سرية حسابك وكلمة المرور الخاصة بك.',
+  // 'userContent': 'محتوى المستخدم',
+  // 'youareresponsibleforanycontentyoupostontheapplicationYougrantanonexclusiveworldwideroyaltyfreetransferableandsublicensablelicensetousereproducemodifyadaptpublishtranslatecreatederivativeworksfromdistributeanddisplaysuchcontentinanyandallmediaordistributionmethods':
+  //     'أنت مسؤول عن أي محتوى تنشره على التطبيق. تمنح [اسم تطبيقك] ترخيصًا غير حصري، عالميًا، مجانيًا، قابلاً للنقل وقابلاً للترخيص من الباطن لاستخدام، نسخ، تعديل، تكييف، نشر، ترجمة، إنشاء أعمال مشتقة، توزيع وعرض هذا المحتوى في أي وسائل أو طرق توزيع.',
+  // 'intellectualProperty': 'الملكية الفكرية',
+  // 'allintellectualpropertyrightsintheapplicationanditscontentbelongtoNameoritslicensorsYoumaynotusereproducedistributeormodifytheapplicationoritscontentwithoutourpriorwrittenpermission':
+  //     'جميع حقوق الملكية الفكرية في التطبيق ومحتواه تخص [اسم تطبيقك] أو المرخصين له. لا يجوز لك استخدام أو نسخ أو توزيع أو تعديل التطبيق أو محتواه دون إذن كتابي مسبق منا.',
+  // 'limitationofLiability': 'تحديد المسؤولية',
+  // 'willnotbeliableforanyindirectincidentalspecialconsequentialorpunitivedamagesresultingfromtheuseoftheapplication.':
+  //     '[اسم تطبيقك] لن يكون مسؤولاً عن أي أضرار غير مباشرة، عرضية، خاصة، تبعية أو عقابية ناتجة عن استخدام التطبيق.',
+  // 'indemnification': 'التعويض',
+  // 'youagreetoindemnifyandholdharmlessfromanyclaimlossliabilitydamagecostandexpensearisingfromyouruseoftheapplicationoryourviolationoftheseTermsofService':
+  //     'توافق على تعويض وحماية [اسم تطبيقك] من أي مطالبة، خسارة، مسؤولية، ضرر، تكلفة أو مصاريف تنشأ عن استخدامك للتطبيق أو انتهاكك لهذه الشروط.',
+  // 'termination': 'الإنهاء',
+  // 'wemayterminateorsuspendyouraccountandaccesstotheapplicationatanytimewithorwithoutnoticeforanyreasonincludingbutnotlimitedtoviolationoftheseTermsofService':
+  //     'قد نقوم بإنهاء أو تعليق حسابك والوصول إلى التطبيق في أي وقت، مع أو بدون إشعار، لأي سبب، بما في ذلك على سبيل المثال لا الحصر، انتهاكك لشروط الخدمة هذه.',
+  // 'governingLaw': 'القانون الواجب التطبيق',
+  // 'theseTermsofServicearegovernedbythelawsofMoroccoAnydisputearisingfromtheseTermsofServicewillbesubjecttotheexclusivejurisdictionofthecourtsofMorocco':
+  //     'تحكم قوانين المغرب شروط الخدمة هذه. أي نزاع ينشأ عن شروط الخدمة هذه سيخضع للاختصاص القضائي الحصري لمحاكم المغرب.',
+  // 'changestotheTermsofService': 'تغييرات في شروط الخدمة',
+  // 'wemayupdatetheseTermsofServiceatanytimeChangeswillbepostedonthispagewiththedateofthelastupdate':
+  //     'قد نقوم بتحديث شروط الخدمة هذه في أي وقت. سيتم نشر التغييرات على هذه الصفحة مع تاريخ آخر تحديث.',
+  // 'contact': 'اتصال',
+  // 'foranyquestionsregardingtheseTermsofServicepleasecontactusat':
+  //     'لأي أسئلة بخصوص شروط الخدمة هذه، يرجى الاتصال بنا على [عنوان البريد الإلكتروني للتواصل].',
+
+  'termsofService': 'شروط الخدمة',
+  'introduction': 'مقدمة',
+  'WelcometoTheseTermsofServicegovernyouruseofourapplicationByusingourapplicationyouagreetotheseTermsofService':
+      'مرحبًا بكم في [اسم تطبيقك]. تحكم شروط الخدمة هذه استخدامك لتطبيقنا. باستخدام تطبيقنا، فإنك توافق على شروط الخدمة هذه.',
+  'useoftheApplication': 'استخدام التطبيق',
+  'youagreeto': 'أنت توافق على:',
+  'usetheapplicationinaccordancewithapplicablelawsandregulations':
+      'استخدام التطبيق وفقًا للقوانين واللوائح المعمول بها.',
+  'notusetheapplicationforillegalorfraudulentactivities': 'عدم استخدام التطبيق لأنشطة غير قانونية أو احتيالية.',
+  'notinterferewiththeoperationoftheapplication': 'عدم التدخل في تشغيل التطبيق.',
+  'userAccount': 'حساب المستخدم',
+  'tousecertainfeaturesoftheapplicationyoumustcreateanaccountYouareresponsiblefortheconfidentialityofyouraccountandpassword':
+      'لاستخدام بعض ميزات التطبيق، يجب عليك إنشاء حساب. أنت مسؤول عن سرية حسابك وكلمة المرور الخاصة بك.',
+  'userContent': 'محتوى المستخدم',
+  'youareresponsibleforanycontentyoupostontheapplicationYougrantanonexclusiveworldwideroyaltyfreetransferableandsublicensablelicensetousereproducemodifyadaptpublishtranslatecreatederivativeworksfromdistributeanddisplaysuchcontentinanyandallmediaordistributionmethods':
+      'أنت مسؤول عن أي محتوى تنشره على التطبيق. تمنح [اسم تطبيقك] ترخيصًا غير حصري وعالميًا وخاليًا من حقوق الملكية وقابلًا للنقل والترخيص الفرعي لاستخدام هذا المحتوى، وإعادة إنتاجه، وتعديله، وتكييفه، ونشره، وترجمته، وإنشاء أعمال مشتقة منه، وتوزيعه، وعرضه بأي وسيلة أو طريقة توزيع.',
+  'intellectualProperty': 'الملكية الفكرية',
+  'allintellectualpropertyrightsintheapplicationanditscontentbelongtoNameoritslicensorsYoumaynotusereproducedistributeormodifytheapplicationoritscontentwithoutourpriorwrittenpermission':
+      'جميع حقوق الملكية الفكرية المتعلقة بالتطبيق ومحتواه تعود إلى [اسم تطبيقك] أو مرخصيه. لا يجوز لك استخدام أو إعادة إنتاج أو توزيع أو تعديل التطبيق أو محتواه دون إذن كتابي مسبق منا.',
+  'limitationofLiability': 'تحديد المسؤولية',
+  'willnotbeliableforanyindirectincidentalspecialconsequentialorpunitivedamagesresultingfromtheuseoftheapplication':
+      'لن تكون [اسم تطبيقك] مسؤولة عن أي أضرار غير مباشرة أو عرضية أو خاصة أو تبعية أو عقابية ناتجة عن استخدام التطبيق.',
+  'indemnification': 'التعويض',
+  'youagreetoindemnifyandholdharmlessfromanyclaimlossliabilitydamagecostandexpensearisingfromyouruseoftheapplicationoryourviolationoftheseTermsofService':
+      'توافق على تعويض وإبراء ذمة [اسم تطبيقك] من أي مطالبة أو خسارة أو مسؤولية أو ضرر أو تكلفة أو نفقات تنشأ عن استخدامك للتطبيق أو انتهاكك لهذه الشروط.',
+  'termination': 'الإنهاء',
+  'wemayterminateorsuspendyouraccountandaccesstotheapplicationatanytimewithorwithoutnoticeforanyreasonincludingbutnotlimitedtoviolationoftheseTermsofService':
+      'يجوز لنا إنهاء أو تعليق حسابك والوصول إلى التطبيق في أي وقت، مع أو بدون إشعار، لأي سبب بما في ذلك على سبيل المثال لا الحصر انتهاك هذه الشروط.',
+  'governingLaw': 'القانون المعمول به',
+  'theseTermsofServicearegovernedbythelawsofMoroccoAnydisputearisingfromtheseTermsofServicewillbesubjecttotheexclusivejurisdictionofthecourtsofMorocco':
+      'تخضع شروط الخدمة هذه لقوانين المغرب. أي نزاع ينشأ عن هذه الشروط سيكون من اختصاص المحاكم المغربية حصريًا.',
+  'changestotheTermsofService': 'تغييرات على شروط الخدمة',
+  'wemayupdatetheseTermsofServiceatanytimeChangeswillbepostedonthispagewiththedateofthelastupdate':
+      'يجوز لنا تحديث شروط الخدمة هذه في أي وقت. سيتم نشر التغييرات على هذه الصفحة مع تاريخ آخر تحديث.',
+  'contact': 'اتصل بنا',
+  'foranyquestionsregardingtheseTermsofServicepleasecontactusat':
+      'لأي أسئلة بخصوص شروط الخدمة هذه، يرجى الاتصال بنا على [عنوان البريد الإلكتروني للتواصل].',
+
+  'termOfServices': 'شروط الخدمة',
+  'privacyPolicy': 'سياسة الخصوصية',
 };

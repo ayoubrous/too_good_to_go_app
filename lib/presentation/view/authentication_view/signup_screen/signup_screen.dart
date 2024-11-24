@@ -9,6 +9,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:too_good_to_go_app/controller/signup_controller.dart';
 import 'package:too_good_to_go_app/presentation/elements/custom_loaders.dart';
 import 'package:too_good_to_go_app/utils/constant/decider.dart';
+import 'package:too_good_to_go_app/utils/constant/loaders.dart';
 import 'package:too_good_to_go_app/utils/theme/theme.dart';
 
 import '../../../../utils/constant/app_colors.dart';
@@ -18,12 +19,16 @@ import '../../../../utils/validators/validators.dart';
 import '../../../elements/custom_button.dart';
 import '../../../elements/custom_text_field.dart';
 import '../../../elements/primary_header_appbar.dart';
+import '../../../elements/privacy_dialog.dart';
+import '../../../elements/term_of_services_dialog.dart';
 import '../login_screen/widget/social_icons.dart';
 import '../phone_login_screen/phone_login_screen.dart';
 import '../select_role_screen/select_role_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
+
+  RxBool _isChecked = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -119,15 +124,74 @@ class SignUpScreen extends StatelessWidget {
                           isPasswordField: true,
                           obsecureText: true,
                         ),
+                        10.sH,
+                        Row(
+                          children: [
+                            Obx(
+                              () => Checkbox(
+                                value: _isChecked.value,
+                                onChanged: (bool? value) {
+                                  _isChecked.value = value ?? false;
+                                },
+                                activeColor: AppColors.kPrimaryColor,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(text: 'Accept ', style: Theme.of(context).textTheme.bodySmall),
+                                    TextSpan(
+                                      text: 'Privacy Policy',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          showPrivacyPolicyDialog(context);
+                                          //Get.to(() => PrivacyPolicyScreen());
+                                        },
+                                    ),
+                                    TextSpan(text: ' and ', style: Theme.of(context).textTheme.bodySmall),
+                                    TextSpan(
+                                      text: 'Terms of Service',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          showTermOfServicesDialog(context);
+                                          //Get.to(() => TermsOfServiceScreen());
+                                        },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         25.sH,
                         CustomButton(
-                            text: 'signup'.tr,
-                            onTapped: () {
-                              if (controller.signUpKey.currentState!.validate()) {
+                          text: 'signup'.tr,
+                          onTapped: () {
+                            if (controller.signUpKey.currentState!.validate()) {
+                              if (_isChecked.value) {
                                 controller.signUp();
+                              } else {
+                                BLoaders.warningSnackBar(
+                                    title: 'Warning',
+                                    messagse: 'You must agree to the Privacy Policy and Terms of Service.');
                               }
-                              // Get.offAll(() => AccessLocationScreen());
-                            }),
+                            }
+
+                            // if (controller.signUpKey.currentState!.validate()) {
+                            //   controller.signUp();
+                            // }
+                            // Get.offAll(() => AccessLocationScreen());
+                          },
+                        ),
                         15.sH,
                         Center(
                           child: Text.rich(

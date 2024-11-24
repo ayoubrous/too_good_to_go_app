@@ -41,7 +41,7 @@ class LoginController extends GetxController {
         localStorage.write('REMEMBER-ME_EMAIL', email.text.trim());
         localStorage.write('REMEMBER-ME_PASSWORD', password.text.trim());
       }
-      await _auth.signInWithEmailAndPassword(email: email.text, password: password.text).then((value) {
+      await _auth.signInWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((value) {
         isLoading(false);
         Get.offAll(
           () => NavigationBarScreen(),
@@ -82,5 +82,4 @@ class LoginController extends GetxController {
       });
     }
   }
-
 }

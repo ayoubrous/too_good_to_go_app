@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,11 +10,13 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:too_good_to_go_app/controller/product_controller.dart';
 import 'package:too_good_to_go_app/presentation/elements/custom_back_button.dart';
 import 'package:too_good_to_go_app/presentation/elements/custom_button.dart';
 import 'package:too_good_to_go_app/presentation/view/home_view/success_screen/success_screen.dart';
 import 'package:too_good_to_go_app/utils/constant/app_colors.dart';
+import 'package:too_good_to_go_app/utils/constant/loaders.dart';
 import 'package:too_good_to_go_app/utils/constant/sizes.dart';
 import 'package:too_good_to_go_app/utils/theme/theme.dart';
 
@@ -33,6 +36,103 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     productController = Get.put(ProductController());
+    Timer.periodic(Duration(minutes: 10), (timer) {
+      checkForExpiredCartItems();
+    });
+  }
+
+  Stream<QuerySnapshot> getCartItems() {
+    // final now = DateTime.now();
+    // final thirtyMinutesAgo = Timestamp.fromDate(now.subtract(Duration(minutes: 30)));
+
+    return FirebaseFirestore.instance
+        .collection('cart')
+        .where('addedBy', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots();
+  }
+
+  // void deleteExpiredCartItems() async {
+  //   try {
+  //     final now = DateTime.now();
+  //     final thirtyMinutesAgo = Timestamp.fromDate(now.add(Duration(minutes: 2)));
+  //
+  //     final cartSnapshot = await FirebaseFirestore.instance
+  //         .collection('cart')
+  //         .where('addedBy', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+  //         .get();
+  //
+  //     for (var doc in cartSnapshot.docs) {
+  //       final timestamp = doc['timestamp'];
+  //
+  //       if (timestamp == null) {
+  //         print("Cart item ${doc.id} is missing a timestamp.");
+  //         continue;
+  //       }
+  //
+  //       if (timestamp.toDate().isBefore(thirtyMinutesAgo.toDate())) {
+  //         await FirebaseFirestore.instance.collection('cart').doc(doc.id).delete();
+  //         print('Deleted expired cart item: ${doc.id}');
+  //       }
+  //     }
+  //
+  //     BLoaders.warningSnackBar(
+  //       title: 'Alert',
+  //       messagse: 'Items in your cart have been removed after exceeding the 30-minute limit.',
+  //     );
+  //   } catch (e) {
+  //     print("Error while deleting expired cart items: $e");
+  //   }
+  // }
+
+  /// 1 chat gpt ///
+  // void checkForExpiredCartItems() {
+  //   FirebaseFirestore.instance
+  //       .collection('cart')
+  //       .where('addedBy', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+  //       .snapshots()
+  //       .listen((snapshot) async {
+  //     final now = DateTime.now();
+  //     final thirtyMinutesAgo = Timestamp.fromDate(now.subtract(Duration(minutes: 2)));
+  //
+  //     for (var doc in snapshot.docs) {
+  //       final timestamp = doc['timestamp'] as Timestamp?;
+  //       if (timestamp != null && timestamp.toDate().isBefore(thirtyMinutesAgo.toDate())) {
+  //         print(doc['timestamp']);
+  //         // Delete expired cart item
+  //         await FirebaseFirestore.instance.collection('cart').doc(doc.id).delete();
+  //         print('Deleted expired cart item: ${doc.id}');
+  //       }
+  //     }
+  //   });
+  // }
+
+  void checkForExpiredCartItems() {
+    // Access the current user ID from FirebaseAuth
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    FirebaseFirestore.instance
+        .collection('cart')
+        .where('addedBy', isEqualTo: userId)
+        .snapshots()
+        .listen((snapshot) async {
+      final now = DateTime.now();
+      final thirtyMinutesAgo = Timestamp.fromDate(now.subtract(Duration(minutes: 30)));
+
+      List<Future> deleteTasks = [];
+
+      for (var doc in snapshot.docs) {
+        final timestamp = doc['timestamp'] as Timestamp?;
+
+        if (timestamp != null && timestamp.toDate().isBefore(thirtyMinutesAgo.toDate())) {
+          print("Item with timestamp ${doc['timestamp']} has expired.");
+
+          deleteTasks.add(FirebaseFirestore.instance.collection('cart').doc(doc.id).delete());
+        }
+      }
+
+      await Future.wait(deleteTasks);
+      print("Deleted all expired cart items.");
+    });
   }
 
   @override
@@ -46,10 +146,7 @@ class _CartScreenState extends State<CartScreen> {
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSizes.lg),
           child: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('cart')
-                .where('addedBy', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-                .snapshots(),
+            stream: getCartItems(),
             builder: (context, snapshot) {
               if (snapshot.data?.docs.isEmpty ?? true) {
                 return Center(
@@ -71,7 +168,8 @@ class _CartScreenState extends State<CartScreen> {
               productController.calculate(data);
               productController.productSnapshot = data;
               productController.allCartItem(data);
-              productController.allcartItemList = data;
+              productController.allcartItemList = data.cast<Map<String, dynamic>>();
+
               // for remove cart items
               // productSnapshotItems = data;
               return Column(
@@ -82,6 +180,7 @@ class _CartScreenState extends State<CartScreen> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Container(
+                          height: Get.height * 0.18,
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
                             color: AppColors.textFieldGreyColor,
@@ -92,6 +191,7 @@ class _CartScreenState extends State<CartScreen> {
                             child: Row(
                               children: [
                                 Container(
+                                  height: Get.height * 0.12,
                                   margin: const EdgeInsets.only(left: 8),
                                   clipBehavior: Clip.antiAlias,
                                   decoration: BoxDecoration(
@@ -117,6 +217,7 @@ class _CartScreenState extends State<CartScreen> {
                                 10.sW,
                                 Expanded(
                                   child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
@@ -131,7 +232,15 @@ class _CartScreenState extends State<CartScreen> {
                                         style: Theme.of(context).textTheme.bodyLarge,
                                         maxLines: 2,
                                       ),
-                                      8.sH,
+                                      Text(
+                                        "Qty:${data[index]['qty']}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(color: AppColors.blackTextColor),
+                                        maxLines: 2,
+                                      ),
+                                      // 8.sH,
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -234,14 +343,11 @@ class _CartScreenState extends State<CartScreen> {
 
   ///----------------///
 
-
   String generateOTP(int length) {
     final random = Random();
     const characters = '0123456789';
     return List.generate(length, (index) => characters[random.nextInt(characters.length)]).join();
   }
-
-
 
   displayPaymentSheet(
     totalPrice,
@@ -273,9 +379,8 @@ class _CartScreenState extends State<CartScreen> {
       for (var doc in data) {
         var itemData = doc.data() as Map<String, dynamic>;
 
-        // Add OTP and visibility flag
-        itemData['otp'] = generateOTP(4); // Adjust length as needed
-        itemData['isOTPObscure'] = true; // Default to hidden
+        itemData['otp'] = generateOTP(4);
+        itemData['isOTPObscure'] = true;
         orderItems.add(itemData);
       }
 
@@ -379,8 +484,6 @@ class _CartScreenState extends State<CartScreen> {
     final price = int.parse(amount) * 100;
     return price.toString();
   }
-
-
 
   /// ---------done one---------- ///
   Future<void> addOrderToFirestore(

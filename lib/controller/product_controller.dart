@@ -269,15 +269,17 @@ class ProductController extends GetxController {
   }
 
   /// for order purpose to show multiple item
-  dynamic allcartItemList;
-
+  // List<dynamic> allcartItemList = [];
+  List<Map<String, dynamic>> allcartItemList = [];
   allCartItem(data) {
-    // allcartItemList;
+    // allcartItemList.clear();
+
     for (var i = 0; i < data.length; i++) {
       FirebaseFirestore.instance.collection('cart').get().then((QuerySnapshot querySnapshot) {
         for (var element in querySnapshot.docs) {
-          update();
           allcartItemList.add(element.data() as Map<String, dynamic>);
+          update();
+          print(querySnapshot.docs.length);
         }
       });
     }

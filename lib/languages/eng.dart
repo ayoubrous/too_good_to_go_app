@@ -180,6 +180,90 @@ Map<String, String> eng = {
   'addressOf': 'Address of restaurant.',
   'reviewed': 'Reviewed',
   'addYourReview': 'Add your review',
-  "businessProfile":'Business Profile',
-  "clientProfile":'Client Profile',
+  "businessProfile": 'Business Profile',
+  "clientProfile": 'Client Profile',
+
+  /// ---------------- privacy policy ------------- ///
+  'PrivacyPolicy': 'Privacy Policy',
+  'Introduction': 'Introduction',
+  'IntroSubTitle':
+      'Welcome to [Your App Name]. This Privacy Policy explains how we collect, use, disclose, and protect your personal information when you use our application. By using our application, you agree to the practices described in this Privacy Policy.',
+  'CollectionofInformation': 'Collection of Information',
+  'Wecollectthefollowinginformation': 'We collect the following information:',
+  'PersonalInformationNameEmailAddressphonenumberpostaladdress':
+      'Personal Information: Name, email address, phone number, postal address.',
+  'PaymentInformationCreditcarddetailsorotherpaymentmethods.':
+      'Payment Information: Credit card details or other payment methods.',
+  'LocationInformationYourgeographicallocationtoprovidelocalservices':
+      'Location Information: Your geographical location to provide local services',
+  'BrowsingInformationDataaboutyouruseoftheapplicationincludingpagesvisitedandinteractions':
+      'Browsing Information: Data about your use of the application, including pages visited and interactions.',
+  'UseofInformation': 'Use of Information',
+  'Weuseyourinformationto': 'We use your information to:',
+  'Provideandimproveourservices': 'Provide and improve our services.',
+  'Personalizeyouruserexperience': 'Personalize your user experience.',
+  'Communicatewithyouaboutyouraccountandourservices': 'Communicate with you about your account and our services.',
+  'Performanalyticsandresearchtoimproveourservices': 'Perform analytics and research to improve our services.',
+  'SharingofInformation': 'Sharing of Information',
+  'Wemayshareyourinformationwith': 'We may share your information with:',
+  'BusinessPartnersToprovidejointservices': 'Business Partners: To provide joint services.',
+  'ServiceProvidersTohelpusprovideourservices': 'Service Providers: To help us provide our services.',
+  'LegalAuthoritiesIfwearelegallyrequiredtodoso': 'Legal Authorities: If we are legally required to do so.',
+  'security': 'Security',
+  'Wetakereasonablemeasurestoprotectyourpersonalinformationfromunauthorizedaccessdisclosurealterationordestruction':
+      'We take reasonable measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction.',
+  'yourRights': 'Your Rights',
+  'youhavetherightto': 'You have the right to:',
+  'accessyourpersonalinformation': 'Access your personal information.',
+  'correctorupdateyourpersonalinformation': 'Correct or update your personal information.',
+  'requestthedeletionofyourpersonalinformation': 'Request the deletion of your personal information',
+  'objecttotheprocessingofyourpersonalinformation': 'Object to the processing of your personal information.',
+  'changestothePrivacyPolicy': 'Changes to the Privacy Policy',
+  'wemayupdatethisPrivacyPolicyatanytimeChangeswillbepostedonthispagewiththedateofthelastupdate':
+      'We may update this Privacy Policy at any time. Changes will be posted on this page with the date of the last update.',
+  'contact': 'Contact',
+  'foranyquestionsregardingthisPrivacyPolicypleasecontactusatcontactemailaddress':
+      'For any questions regarding this Privacy Policy, please contact us at [contact email address].',
+
+  /// term of services ///
+  'termsofService': 'Terms of Service',
+  'introduction': 'Introduction',
+  'WelcometoTheseTermsofServicegovernyouruseofourapplicationByusingourapplicationyouagreetotheseTermsofService':
+      'Welcome to [Your App Name]. These Terms of Service govern your use of our application. By using our application, you agree to these Terms of Service.',
+  'useoftheApplication': 'Use of the Application',
+  'youagreeto': 'You agree to:',
+  'usetheapplicationinaccordancewithapplicablelawsandregulations':
+      'Use the application in accordance with applicable laws and regulations.',
+  'notusetheapplicationforillegalorfraudulentactivities':
+      'Not use the application for illegal or fraudulent activities.',
+  'notinterferewiththeoperationoftheapplication': 'Not interfere with the operation of the application.',
+  'userAccount': 'User Account',
+  'tousecertainfeaturesoftheapplicationyoumustcreateanaccountYouareresponsiblefortheconfidentialityofyouraccountandpassword':
+      'To use certain features of the application, you must create an account. You are responsible for the confidentiality of your account and password.',
+  'userContent': 'User Content',
+  'youareresponsibleforanycontentyoupostontheapplicationYougrantanonexclusiveworldwideroyaltyfreetransferableandsublicensablelicensetousereproducemodifyadaptpublishtranslatecreatederivativeworksfromdistributeanddisplaysuchcontentinanyandallmediaordistributionmethods':
+      'You are responsible for any content you post on the application. You grant [Your App Name] a non-exclusive, worldwide, royalty-free, transferable, and sublicensable license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such content in any and all media or distribution methods.',
+  'intellectualProperty': 'Intellectual Property',
+  'allintellectualpropertyrightsintheapplicationanditscontentbelongtoNameoritslicensorsYoumaynotusereproducedistributeormodifytheapplicationoritscontentwithoutourpriorwrittenpermission': 'All intellectual property rights in the application and its content belong to [Your App Name] or its licensors. You may not use, reproduce, distribute, or modify the application or its content without our prior written permission',
+  'limitationofLiability': 'Limitation of Liability',
+  'willnotbeliableforanyindirectincidentalspecialconsequentialorpunitivedamagesresultingfromtheuseoftheapplication':
+      '[Your App Name] will not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from the use of the application.',
+  'indemnification': 'Indemnification',
+  'youagreetoindemnifyandholdharmlessfromanyclaimlossliabilitydamagecostandexpensearisingfromyouruseoftheapplicationoryourviolationoftheseTermsofService':
+      'You agree to indemnify and hold [Your App Name] harmless from any claim, loss, liability, damage, cost, and expense arising from your use of the application or your violation of these Terms of Service.',
+  'termination': 'Termination',
+  'wemayterminateorsuspendyouraccountandaccesstotheapplicationatanytimewithorwithoutnoticeforanyreasonincludingbutnotlimitedtoviolationoftheseTermsofService':
+      'We may terminate or suspend your account and access to the application at any time, with or without notice, for any reason, including, but not limited to, violation of these Terms of Service',
+  'governingLaw': 'Governing Law',
+  'theseTermsofServicearegovernedbythelawsofMoroccoAnydisputearisingfromtheseTermsofServicewillbesubjecttotheexclusivejurisdictionofthecourtsofMorocco':
+      'These Terms of Service are governed by the laws of Morocco. Any dispute arising from these Terms of Service will be subject to the exclusive jurisdiction of the courts of Morocco.',
+  'changestotheTermsofService': 'Changes to the Terms of Service',
+  'wemayupdatetheseTermsofServiceatanytimeChangeswillbepostedonthispagewiththedateofthelastupdate': 'We may update these Terms of Service at any time. Changes will be posted on this page with the date of the last update.',
+  'contact': 'Contact',
+  'foranyquestionsregardingtheseTermsofServicepleasecontactusat': 'For any questions regarding these Terms of Service, please contact us at [contact email address].',
+
+  'termOfServices':'Term of Services',
+  'privacyPolicy':'Privacy Policy',
+
+
 };

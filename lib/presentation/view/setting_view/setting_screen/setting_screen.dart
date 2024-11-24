@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,13 +12,19 @@ import 'package:too_good_to_go_app/presentation/elements/icon_button.dart';
 import 'package:too_good_to_go_app/presentation/view/authentication_view/login_screen/login_screen.dart';
 import 'package:too_good_to_go_app/presentation/view/setting_view/contact_us_screen/contact_us_screen.dart';
 import 'package:too_good_to_go_app/presentation/view/setting_view/languages_screen/language_screen.dart';
+import 'package:too_good_to_go_app/presentation/view/setting_view/privacy_policy_screen.dart';
 import 'package:too_good_to_go_app/utils/constant/app_colors.dart';
 import 'package:too_good_to_go_app/utils/constant/back_end_config.dart';
 import 'package:too_good_to_go_app/utils/constant/sizes.dart';
 import 'package:too_good_to_go_app/utils/theme/theme.dart';
 
 import '../../../../utils/constant/image_string.dart';
+import '../business_registration/business_registration.dart';
+import '../favorite_screen/favoite_screen.dart';
+import '../my_listing_screen/my_listing_screen.dart';
+import '../order_screen/order_screen.dart';
 import '../personal_info_screen/personal_info_screen.dart';
+import '../term_of_services_screen.dart';
 import 'widget/setting_tile.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -136,42 +143,59 @@ class _SettingScreenState extends State<SettingScreen> {
                       8.sH,
                       const Divider(),
                       8.sH,
-                      isBusiness
-                          ? Column(
-                              children: [
-                                SettingTile(
-                                    title: 'businessRegistration'.tr,
-                                    onTap: () {
-                                      Get.to(() => BusinessRegistrationScreen());
-                                    },
-                                    icon: Icons.business_center_outlined),
-                                SettingTile(
-                                    title: 'myListing'.tr,
-                                    onTap: () {
-                                      Get.to(() => MyListingScreen());
-                                    },
-                                    icon: Iconsax.note),
-                              ],
-                            )
-                          : SizedBox(),
-                      SettingTile(
-                          title: 'favourite'.tr,
-                          onTap: () {
-                            Get.to(() => const FavoriteScreen());
-                          },
-                          icon: CupertinoIcons.heart),
-                      SettingTile(
-                          title: 'myOrders'.tr,
-                          onTap: () {
-                            Get.to(() => OrderScreen());
-                          },
-                          icon: CupertinoIcons.car),
+                      // isBusiness
+                      //     ? Column(
+                      //         children: [
+                      //           SettingTile(
+                      //               title: 'businessRegistration'.tr,
+                      //               onTap: () {
+                      //                 Get.to(() => BusinessRegistrationScreen());
+                      //               },
+                      //               icon: Icons.business_center_outlined),
+                      //           SettingTile(
+                      //               title: 'myListing'.tr,
+                      //               onTap: () {
+                      //                 Get.to(() => MyListingScreen());
+                      //               },
+                      //               icon: Iconsax.note),
+                      //         ],
+                      //       )
+                      //     : SizedBox(),
+                      // SettingTile(
+                      //     title: 'favourite'.tr,
+                      //     onTap: () {
+                      //       Get.to(() =>  FavoriteScreen());
+                      //     },
+                      //     icon: CupertinoIcons.heart),
+                      // SettingTile(
+                      //     title: 'myOrders'.tr,
+                      //     onTap: () {
+                      //       Get.to(() => OrderScreen());
+                      //     },
+                      //     icon: CupertinoIcons.car),
                       SettingTile(
                           title: 'languages'.tr,
                           onTap: () {
                             Get.to(() => const LanguageScreen());
                           },
                           icon: Icons.language),
+
+                      SettingTile(
+                        title: 'termOfServices'.tr,
+                        onTap: () {
+                          Get.to(() => TermOfServicesScreen());
+                        },
+                        icon: Icons.description_outlined,
+                      ),
+                      SettingTile(
+                          title: 'privacyPolicy'.tr,
+                          onTap: () {
+                            Get.to(
+                              () => PrivacyPolicyScreen(),
+                            );
+                          },
+                          icon: Icons.privacy_tip_outlined),
+
                       SettingTile(
                           title: 'contactus'.tr,
                           onTap: () {
@@ -180,7 +204,6 @@ class _SettingScreenState extends State<SettingScreen> {
                           icon: Icons.contact_mail_outlined),
                       SettingTile(
                           title: 'Logout'.tr,
-                          
                           onTap: () async {
                             GoogleSignIn googleSignIn = GoogleSignIn();
                             await googleSignIn.signOut().then((value) {

@@ -116,7 +116,7 @@ import '../presentation/view/home_view/navigation_bar_view/navigation_bar_screen
 class LocationController extends GetxController {
   var address = ''.obs;
   var coordinates = ''.obs;
-  final box = GetStorage();  // Declare GetStorage instance at the class level
+  final box = GetStorage(); // Declare GetStorage instance at the class level
 
   @override
   void onInit() {

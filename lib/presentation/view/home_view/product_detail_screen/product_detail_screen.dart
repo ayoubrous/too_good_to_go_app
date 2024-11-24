@@ -106,7 +106,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
                               child: CircleAvatar(
                                 backgroundColor: AppColors.textFieldGreyColor,
                                 child: BackButton(
@@ -114,7 +114,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     productController.clearAfterAddToCart();
                                     Navigator.pop(context);
                                   },
-                                  style: ButtonStyle(
+                                  style: const ButtonStyle(
                                     iconSize: MaterialStatePropertyAll<double>(20),
                                   ),
                                 ),
@@ -147,7 +147,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               iconData: widget.data['p_Whishlist'].contains(FirebaseAuth.instance.currentUser!.uid)
                                   ? Iconsax.heart5
                                   : Iconsax.heart,
-
                             ),
                           ],
                         ),
@@ -255,7 +254,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             'selectQuantity'.tr,
                             style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           CupertinoButton(
                             padding: EdgeInsets.zero,
                             onPressed: () {
@@ -448,6 +447,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       text: 'Add To Cart',
                       onTapped: () {
                         if (productController.item.value > 0) {
+                          String formattedTime = DateFormat('hh:mm a').format(DateTime.now());
                           String formattedStartTime = _formatTime(startTime); // E.g., "9:00 AM"
                           String formattedEndTime = _formatTime(endTime);
                           FirebaseFirestore.instance.collection('cart').doc().set({
@@ -463,7 +463,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             'addedBy': FirebaseAuth.instance.currentUser!.uid,
                             'qty': productController.item.value.toString(),
                             'totalPrice': productController.totalPrice.value.toString(),
+                            'timestamp': Timestamp.now(),
                           }).then((value) {
+                            //print(widget.data['timestamp']);
                             print(widget.data['pId']);
                             print(widget.data['pBusinessName']);
                             BLoaders.successSnackBar(
@@ -476,8 +478,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         }
                       },
                     ),
-
-
                   ],
                 ),
               ),
@@ -511,7 +511,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final productImage = productDetails['pImage'];
     final productLink =
         'https://yourapp.com/products/${productDetails['pId']}'; // Replace with your actual product link
-
 
     final shareContent = '''
     Check out this product!
